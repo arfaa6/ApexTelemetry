@@ -1,0 +1,9 @@
+version: '3.8'
+
+services:
+  simulation-api:
+    build: .
+    container_name: race_strategy_api
+    ports:
+      - "8000:8000"
+    restart: always
