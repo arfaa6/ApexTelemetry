@@ -3,175 +3,151 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ApexTelemetry | F1 Strategy & Simulation Platform</title>
-    <!-- Tailwind CSS -->
+    <title>ApexTelemetry | F1 Strategy & Simulation</title>
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Chart.js for Live Telemetry Graphs -->
+    <!-- Chart.js CDN -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        mono: ['JetBrains Mono', 'monospace'],
-                    },
-                    colors: {
-                        racing: {
-                            dark: '#0a0b0e',
-                            card: '#12151c',
-                            border: '#1e2430',
-                            accent: '#00f0ff',
-                            warning: '#ffb703',
-                            danger: '#ef476f',
-                            success: '#06d6a0'
-                        }
-                    }
-                }
-            }
-        }
-    </script>
 </head>
-<body class="bg-racing-dark text-gray-100 font-sans antialiased min-h-screen flex flex-col">
+<body class="bg-slate-950 text-slate-100 font-sans min-h-screen p-6">
 
-    <!-- Top Navigation Bar -->
-    <header class="border-b border-racing-border bg-racing-card/80 backdrop-blur sticky top-0 z-50 px-6 py-4 flex items-center justify-between">
-        <div class="flex items-center space-x-3">
-            <div class="h-3 w-3 rounded-full bg-racing-accent animate-pulse"></div>
-            <h1 class="text-xl font-bold tracking-wider text-white">APEX<span class="text-racing-accent">TELEMETRY</span></h1>
-            <span class="text-xs px-2 py-0.5 rounded bg-racing-border text-gray-400 font-mono">V2.0 LIVE CHART</span>
-        </div>
-        <div class="flex items-center space-x-4 font-mono text-sm">
-            <span class="text-gray-400">SESSION: <span class="text-white">GP_SIM_2026</span></span>
-            <span class="bg-racing-success/10 text-racing-success px-3 py-1 rounded border border-racing-success/20 text-xs">SYSTEM HEALTH: OPTIMAL</span>
+    <header class="flex justify-between items-center border-b border-slate-800 pb-4 mb-6">
+        <h1 class="text-xl font-black tracking-wider text-cyan-400">APEXTELEMETRY <span class="text-xs text-slate-400 font-normal">V2.0 LIVE CHART</span></h1>
+        <div class="flex gap-6 text-xs text-slate-400">
+            <span>SESSION: <strong class="text-slate-200">GP_SIM_2026</strong></span>
+            <span>SYSTEM HEALTH: <strong class="text-emerald-400">OPTIMAL</strong></span>
         </div>
     </header>
 
-    <!-- Main Dashboard Grid -->
-    <main class="flex-1 p-6 max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-3 gap-6">
-        
-        <!-- Left Panel: Simulation Controls -->
-        <section class="bg-racing-card border border-racing-border rounded-xl p-6 flex flex-col justify-between shadow-xl">
+    <main class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <!-- Left Column: Strategy Controls -->
+        <section class="bg-slate-900 border border-slate-800 rounded-xl p-5 shadow-xl flex flex-col justify-between">
             <div>
-                <div class="flex items-center justify-between mb-6">
-                    <h2 class="text-lg font-semibold tracking-wide text-white flex items-center gap-2">
-                        <svg class="w-5 h-5 text-racing-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path></svg>
-                        Strategy Controls
-                    </h2>
-                    <span class="text-xs text-gray-400 font-mono">INPUT PARAMS</span>
-                </div>
+                <h2 class="text-sm font-bold uppercase tracking-wide text-slate-300 mb-6 flex items-center gap-2">
+                    ⚙️ Strategy Controls
+                </h2>
 
-                <form id="simulation-form" class="space-y-5">
+                <div class="space-y-5">
                     <div>
-                        <label class="block text-xs font-mono uppercase tracking-wider text-gray-400 mb-2">Initial Fuel (KG)</label>
-                        <input type="number" id="initial_fuel" value="100.0" step="0.5" class="w-full bg-racing-dark border border-racing-border rounded-lg px-4 py-2.5 text-white font-mono focus:outline-none focus:border-racing-accent transition">
+                        <label class="block text-xs uppercase tracking-wider text-slate-400 mb-2 font-semibold">Initial Fuel (KG)</label>
+                        <input id="initial-fuel" type="number" value="100.0" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-3 text-sm text-slate-100 focus:outline-none focus:border-cyan-500">
                     </div>
+
                     <div>
-                        <label class="block text-xs font-mono uppercase tracking-wider text-gray-400 mb-2">Tire Wear (%)</label>
-                        <input type="number" id="tire_wear" value="0.0" step="0.1" class="w-full bg-racing-dark border border-racing-border rounded-lg px-4 py-2.5 text-white font-mono focus:outline-none focus:border-racing-accent transition">
+                        <label class="block text-xs uppercase tracking-wider text-slate-400 mb-2 font-semibold">Tire Wear (%)</label>
+                        <input id="tire-wear" type="number" step="0.1" value="0.0" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-3 text-sm text-slate-100 focus:outline-none focus:border-cyan-500">
                     </div>
+
                     <div>
-                        <label class="block text-xs font-mono uppercase tracking-wider text-gray-400 mb-2">Stint Laps Completed</label>
-                        <input type="number" id="stint_laps" value="15" class="w-full bg-racing-dark border border-racing-border rounded-lg px-4 py-2.5 text-white font-mono focus:outline-none focus:border-racing-accent transition">
+                        <label class="block text-xs uppercase tracking-wider text-slate-400 mb-2 font-semibold">Stint Laps Completed</label>
+                        <input id="stint-laps" type="number" value="15" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-3 text-sm text-slate-100 focus:outline-none focus:border-cyan-500">
                     </div>
+
                     <div>
-                        <label class="block text-xs font-mono uppercase tracking-wider text-gray-400 mb-2">Tire Compound</label>
-                        <select id="tire_compound" class="w-full bg-racing-dark border border-racing-border rounded-lg px-4 py-2.5 text-white font-mono focus:outline-none focus:border-racing-accent transition">
+                        <label class="block text-xs uppercase tracking-wider text-slate-400 mb-2 font-semibold">Tire Compound</label>
+                        <select id="tire-compound" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-3 text-sm text-slate-100 focus:outline-none focus:border-cyan-500">
                             <option value="soft">SOFT</option>
                             <option value="medium" selected>MEDIUM</option>
                             <option value="hard">HARD</option>
                         </select>
                     </div>
-                </form>
+                </div>
             </div>
 
-            <button type="button" onclick="runSimulation()" class="mt-8 w-full bg-racing-accent hover:bg-racing-accent/90 text-racing-dark font-bold py-3 px-4 rounded-lg tracking-wider transition shadow-lg shadow-racing-accent/10 flex items-center justify-center gap-2">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                EXECUTE SIMULATION
+            <button id="execute-btn" class="mt-8 w-full bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold py-3.5 px-4 rounded-lg transition tracking-wide text-sm flex items-center justify-center gap-2 shadow-lg shadow-cyan-500/20 cursor-pointer">
+                → EXECUTE SIMULATION
             </button>
         </section>
 
-        <!-- Right Panel: Telemetry & Interactive Chart -->
-        <section class="lg:col-span-2 space-y-6">
-            <!-- Main Gauges Grid -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <!-- Lap Time Card -->
-                <div class="bg-racing-card border border-racing-border rounded-xl p-6 relative overflow-hidden">
-                    <span class="text-xs font-mono uppercase tracking-wider text-gray-400">Estimated Lap Time</span>
-                    <div class="mt-3 flex items-baseline space-x-2">
-                        <span id="metric-lap-time" class="text-4xl font-extrabold font-mono text-white tracking-tight">--.---</span>
-                        <span class="text-sm font-mono text-gray-400">SEC</span>
-                    </div>
-                    <div class="mt-4 flex items-center text-xs text-racing-success font-mono">
-                        <span>▲ Optimal trajectory calculated</span>
-                    </div>
+        <!-- Right Column: Metrics & Chart Dashboard -->
+        <section class="lg:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Estimated Lap Time Card -->
+            <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 shadow-xl flex flex-col justify-between">
+                <div>
+                    <span class="text-xs uppercase tracking-wider text-slate-400 font-semibold">Estimated Lap Time</span>
+                    <div id="estimated-lap-time" class="text-4xl font-black text-slate-100 mt-2 tracking-tight">89.287 <span class="text-lg font-normal text-slate-400">SEC</span></div>
                 </div>
+                <div class="text-xs text-cyan-400 mt-4">▲ Optimal trajectory calculated</div>
+            </div>
 
-                <!-- Pit Stop Probability Card -->
-                <div class="bg-racing-card border border-racing-border rounded-xl p-6 relative overflow-hidden">
-                    <span class="text-xs font-mono uppercase tracking-wider text-gray-400">Pit Stop Probability</span>
-                    <div class="mt-3 flex items-baseline space-x-2">
-                        <span id="metric-pit-prob" class="text-4xl font-extrabold font-mono text-racing-warning tracking-tight">--.-</span>
-                        <span class="text-sm font-mono text-gray-400">%</span>
-                    </div>
-                    <div class="mt-4 flex items-center text-xs text-gray-400 font-mono">
-                        <span>Based on current tyre degradation</span>
-                    </div>
+            <!-- Pit Stop Probability Card -->
+            <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 shadow-xl flex flex-col justify-between">
+                <div>
+                    <span class="text-xs uppercase tracking-wider text-slate-400 font-semibold">Pit Stop Probability</span>
+                    <div id="pit-stop-prob" class="text-4xl font-black text-slate-100 mt-2 tracking-tight">25.5<span class="text-lg font-normal text-slate-400">%</span></div>
                 </div>
+                <div class="text-xs text-slate-400 mt-4">Based on current tyre degradation</div>
+            </div>
 
-                <!-- Remaining Fuel Card -->
-                <div class="bg-racing-card border border-racing-border rounded-xl p-6">
-                    <span class="text-xs font-mono uppercase tracking-wider text-gray-400">Projected Fuel Remaining</span>
-                    <div class="mt-3 flex items-baseline space-x-2">
-                        <span id="metric-fuel" class="text-3xl font-bold font-mono text-white tracking-tight">--.--</span>
-                        <span class="text-sm font-mono text-gray-400">KG</span>
-                    </div>
-                    <div class="w-full bg-racing-dark rounded-full h-2 mt-4 overflow-hidden border border-racing-border">
-                        <div id="fuel-bar" class="bg-racing-accent h-full transition-all duration-500" style="width: 75%"></div>
-                    </div>
-                </div>
-
-                <!-- Tire Degradation Card -->
-                <div class="bg-racing-card border border-racing-border rounded-xl p-6">
-                    <span class="text-xs font-mono uppercase tracking-wider text-gray-400">Compound Degradation</span>
-                    <div class="mt-3 flex items-baseline space-x-2">
-                        <span id="metric-tire-wear" class="text-3xl font-bold font-mono text-white tracking-tight">--.-</span>
-                        <span class="text-sm font-mono text-gray-400">%</span>
-                    </div>
-                    <div class="w-full bg-racing-dark rounded-full h-2 mt-4 overflow-hidden border border-racing-border">
-                        <div id="tire-bar" class="bg-racing-danger h-full transition-all duration-500" style="width: 22%"></div>
-                    </div>
+            <!-- Projected Fuel Remaining Card -->
+            <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 shadow-xl">
+                <span class="text-xs uppercase tracking-wider text-slate-400 font-semibold">Projected Fuel Remaining</span>
+                <div id="projected-fuel" class="text-3xl font-black text-slate-100 mt-2 tracking-tight">73.75 <span class="text-lg font-normal text-slate-400">KG</span></div>
+                <div class="w-full bg-slate-950 h-2 rounded-full mt-4 overflow-hidden">
+                    <div id="fuel-bar" class="bg-cyan-500 h-full w-3/4"></div>
                 </div>
             </div>
 
-            <!-- Interactive Chart Panel -->
-            <div class="bg-racing-card border border-racing-border rounded-xl p-6">
-                <div class="flex items-center justify-between mb-4">
-                    <span class="text-xs font-mono uppercase tracking-wider text-gray-400 flex items-center gap-2">
-                        <span class="h-2 w-2 rounded-full bg-racing-accent"></span>
-                        Stint Lap-Time Degradation Curve
-                    </span>
-                    <span class="text-xs font-mono text-racing-accent">LIVE CHART.JS</span>
+            <!-- Compound Degradation Card -->
+            <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 shadow-xl">
+                <span class="text-xs uppercase tracking-wider text-slate-400 font-semibold">Compound Degradation</span>
+                <div id="compound-deg" class="text-3xl font-black text-slate-100 mt-2 tracking-tight">22.5<span class="text-lg font-normal text-slate-400">%</span></div>
+                <div class="w-full bg-slate-950 h-2 rounded-full mt-4 overflow-hidden">
+                    <div id="deg-bar" class="bg-rose-500 h-full w-1/4"></div>
                 </div>
-                <div class="relative h-64 w-full">
-                    <canvas id="telemetryChart"></canvas>
+            </div>
+
+            <!-- Chart Card -->
+            <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 shadow-xl md:col-span-2">
+                <div class="flex justify-between items-center mb-4">
+                    <span class="text-xs uppercase tracking-wider text-slate-400 font-semibold">Stint Lap-Time Degradation Curve</span>
+                    <span class="text-xs text-cyan-400 font-bold">LIVE CHART.JS</span>
+                </div>
+                <div class="h-64 relative">
+                    <canvas id="lapChart"></canvas>
                 </div>
             </div>
         </section>
     </main>
 
-    <!-- JavaScript & Chart Logic -->
     <script>
-        let telemetryChart = null;
+        // Initialize Chart.js
+        const ctx = document.getElementById('lapChart').getContext('2d');
+        const lapChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['Lap 1', 'Lap 2', 'Lap 3', 'Lap 4', 'Lap 5', 'Lap 6', 'Lap 7', 'Lap 8', 'Lap 9', 'Lap 10', 'Lap 11', 'Lap 12', 'Lap 13', 'Lap 14', 'Lap 15'],
+                datasets: [{
+                    label: 'Lap Time (s)',
+                    data: [88.5, 88.6, 88.7, 88.8, 88.9, 89.0, 89.0, 89.1, 89.1, 89.2, 89.2, 89.3, 89.4, 89.5, 89.6],
+                    borderColor: '#22d3ee',
+                    backgroundColor: 'rgba(34, 211, 238, 0.1)',
+                    borderWidth: 2,
+                    fill: true,
+                    tension: 0.3
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: {
+                    x: { grid: { color: 'rgba(255, 255, 255, 0.05)' }, ticks: { color: '#94a3b8' } },
+                    y: { grid: { color: 'rgba(255, 255, 255, 0.05)' }, ticks: { color: '#94a3b8' } }
+                }
+            }
+        });
 
-        async function runSimulation() {
+        // Event listener for executing simulation
+        document.getElementById('execute-btn').addEventListener('click', async () => {
+            const btn = document.getElementById('execute-btn');
+            btn.innerText = "EXECUTING...";
+
             const payload = {
-                initial_fuel: parseFloat(document.getElementById('initial_fuel').value),
-                tire_wear: parseFloat(document.getElementById('tire_wear').value),
-                stint_laps: parseInt(document.getElementById('stint_laps').value),
-                tire_compound: document.getElementById('tire_compound').value
+                initial_fuel: parseFloat(document.getElementById('initial-fuel').value) || 100.0,
+                tire_wear: parseFloat(document.getElementById('tire-wear').value) || 0.0,
+                stint_laps: parseInt(document.getElementById('stint-laps').value) || 15,
+                tire_compound: document.getElementById('tire-compound').value || "medium"
             };
 
             try {
@@ -181,71 +157,30 @@
                     body: JSON.stringify(payload)
                 });
 
-                const result = await response.json();
-                
-                if (response.ok && result.data) {
-                    const data = result.data;
-                    document.getElementById('metric-lap-time').innerText = data.estimated_lap_time.toFixed(3);
-                    document.getElementById('metric-pit-prob').innerText = data.pit_stop_probability.toFixed(1);
-                    document.getElementById('metric-fuel').innerText = data.remaining_fuel_kg.toFixed(2);
-                    document.getElementById('metric-tire-wear').innerText = data.tire_wear_percentage.toFixed(1);
+                if (!response.ok) throw new Error('Simulation failed');
 
-                    document.getElementById('fuel-bar').style.width = Math.min(100, (data.remaining_fuel_kg / payload.initial_fuel) * 100) + '%';
-                    document.getElementById('tire-bar').style.width = Math.min(100, data.tire_wear_percentage) + '%';
+                const responseJson = await response.json();
+                const data = responseJson.data || responseJson;
 
-                    updateChart(data.stint_curve);
+                // Update text metrics using exact backend keys
+                document.getElementById('estimated-lap-time').innerHTML = `${Number(data.estimated_lap_time).toFixed(3)} <span class="text-lg font-normal text-slate-400">SEC</span>`;
+                document.getElementById('pit-stop-prob').innerHTML = `${Number(data.pit_stop_probability).toFixed(1)}<span class="text-lg font-normal text-slate-400">%</span>`;
+                document.getElementById('projected-fuel').innerHTML = `${Number(data.remaining_fuel_kg).toFixed(2)} <span class="text-lg font-normal text-slate-400">KG</span>`;
+                document.getElementById('compound-deg').innerHTML = `${Number(data.tire_wear_percentage).toFixed(1)}<span class="text-lg font-normal text-slate-400">%</span>`;
+
+                // Update Chart.js using backend 'stint_curve'
+                if (data.stint_curve && Array.isArray(data.stint_curve)) {
+                    lapChart.data.labels = data.stint_curve.map(l => `Lap ${l.lap}`);
+                    lapChart.data.datasets[0].data = data.stint_curve.map(l => l.lap_time);
+                    lapChart.update();
                 }
-            } catch (err) {
-                console.error("Connection Error:", err);
+
+            } catch (error) {
+                console.error('Simulation Error:', error);
+            } finally {
+                btn.innerText = "→ EXECUTE SIMULATION";
             }
-        }
-
-        function updateChart(curveData) {
-            const ctx = document.getElementById('telemetryChart').getContext('2d');
-            const labels = curveData.map(d => `Lap ${d.lap}`);
-            const lapTimes = curveData.map(d => d.lap_time);
-
-            if (telemetryChart) {
-                telemetryChart.destroy();
-            }
-
-            telemetryChart = new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: labels,
-                    datasets: [{
-                        label: 'Lap Time (s)',
-                        data: lapTimes,
-                        borderColor: '#00f0ff',
-                        backgroundColor: 'rgba(0, 240, 255, 0.1)',
-                        borderWidth: 2,
-                        fill: true,
-                        tension: 0.3,
-                        pointRadius: 3,
-                        pointBackgroundColor: '#00f0ff'
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: { display: false }
-                    },
-                    scales: {
-                        x: {
-                            grid: { color: '#1e2430' },
-                            ticks: { color: '#9ca3af', font: { family: 'JetBrains Mono', size: 10 } }
-                        },
-                        y: {
-                            grid: { color: '#1e2430' },
-                            ticks: { color: '#9ca3af', font: { family: 'JetBrains Mono', size: 10 } }
-                        }
-                    }
-                }
-            });
-        }
-
-        window.onload = () => { runSimulation(); };
+        });
     </script>
 </body>
 </html>
